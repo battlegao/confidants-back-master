@@ -14,6 +14,7 @@ import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.math3.util.Pair;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.DigestUtils;
@@ -21,6 +22,7 @@ import org.springframework.util.DigestUtils;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -36,15 +38,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     @Resource
     private UserMapper userMapper;
 
+    //随机生成编号的基数
+    int counter = 1;
+
+    @Resource
+    private RedisTemplate redisTemplate;
     /**
      * 盐值，混淆密码
      */
     private static final String SALT = "battlegao";
 
     @Override
-    public long userRegister(String userAccount, String userPassword, String checkPassword, String planetCode) {
+    public long userRegister(String userAccount, String userPassword, String checkPassword, String userName, String phone, String email, Integer gender) {
         // 1. 校验
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, userName ,phone ,email ) || gender == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
         }
         if (userAccount.length() < 4) {
@@ -53,9 +60,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         if (userPassword.length() < 8 || checkPassword.length() < 8) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户密码过短");
         }
-        if (planetCode.length() > 5) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "星球编号过长");
+        if (phone.length() != 11) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "手机号过长或过短且只能是纯数字");
         }
+
         // 账户不能包含特殊字符
         String validPattern = "[`~!@#$%^&*()+=|{}':;',\\\\[\\\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
         Matcher matcher = Pattern.compile(validPattern).matcher(userAccount);
@@ -74,24 +82,52 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号重复");
         }
         // 星球编号不能重复
-        queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("planetCode", planetCode);
-        count = userMapper.selectCount(queryWrapper);
-        if (count > 0) {
-            throw new BusinessException(ErrorCode.PARAMS_ERROR, "编号重复");
+
+//        queryWrapper = new QueryWrapper<>();
+//        queryWrapper.eq("planetCode", planetCode);
+//        count = userMapper.selectCount(queryWrapper);
+//        if (count > 0) {
+//            throw new BusinessException(ErrorCode.PARAMS_ERROR, "编号重复");
+//        }
+        // 手机号不能重复
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>();
+        long counts = count(userQueryWrapper.eq("phone", phone));
+        if (counts > 0) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "您的手机号已经注册过了");
         }
+
         // 2. 加密
         String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
         // 3. 插入数据
         User user = new User();
         user.setUserAccount(userAccount);
         user.setUserPassword(encryptPassword);
-        user.setPlanetCode(planetCode);
+        user.setUserStatus(0);
+        user.setUserRole(0);
+        user.setUsername(userName);
+        user.setPhone(phone);
+        user.setEmail(email);
+        user.setGender(gender);
+        user.setAvatarUrl("https://p6.itc.cn/images01/20220310/98acb4f6333a468da5fe7f091057f191.jpeg");
+        user.setPlanetCode(randomPlantCode());
+//        user.setPlanetCode(planetCode);
         boolean saveResult = this.save(user);
         if (!saveResult) {
-            return -1;
+//            return -1;
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "注册失败");
         }
         return user.getId();
+    }
+
+
+    /**
+     * 随机生成6位数字做编号
+     * @return
+     */
+    public String randomPlantCode() {
+        Random random = new Random();
+        int num = random.nextInt(900000) + 100000;
+        return String.valueOf(num + counter++);
     }
 
 

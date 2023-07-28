@@ -49,11 +49,14 @@ public class UserController {
         String userAccount = userRegisterRequest.getUserAccount();
         String userPassword = userRegisterRequest.getUserPassword();
         String checkPassword = userRegisterRequest.getCheckPassword();
-        String planetCode = userRegisterRequest.getPlanetCode();
-        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, planetCode)) {
+        String userName = userRegisterRequest.getUserName();
+        Integer gender = userRegisterRequest.getGender();
+        String phone = userRegisterRequest.getPhone();
+        String email = userRegisterRequest.getEmail();
+        if (StringUtils.isAnyBlank(userAccount, userPassword, checkPassword, userName, phone,email) || gender == null) {
             return null;
         }
-        long result = userService.userRegister(userAccount, userPassword, checkPassword, planetCode);
+        long result = userService.userRegister(userAccount, userPassword, checkPassword,userName, phone,email ,gender);
         return ResultUtils.success(result);
     }
 

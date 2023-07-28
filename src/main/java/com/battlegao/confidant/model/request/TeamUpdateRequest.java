@@ -44,4 +44,3 @@ public class TeamUpdateRequest implements Serializable {
     private String password;
 }
 
-// 负责人【battlegao】 https://space.bilibili.com/12890453/
