@@ -64,7 +64,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         // 3. 校验信息
         //   1. 队伍人数 > 1 且 <= 20
         int maxNum = Optional.ofNullable(team.getMaxNum()).orElse(0);
-        if (maxNum < 1 || maxNum > 20) {
+        if (maxNum < 1 || maxNum > 100) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "队伍人数不满足要求");
         }
         //   2. 队伍标题 <= 20
@@ -100,7 +100,7 @@ public class TeamServiceImpl extends ServiceImpl<TeamMapper, Team>
         QueryWrapper<Team> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("userId", userId);
         long hasTeamNum = this.count(queryWrapper);
-        if (hasTeamNum >= 5) {
+        if (hasTeamNum >= 100) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户最多创建 5 个队伍");
         }
         // 8. 插入队伍信息到队伍表
