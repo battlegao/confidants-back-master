@@ -33,14 +33,10 @@ import java.util.stream.Collectors;
 
 /**
  * 队伍接口
- * //@CrossOrigin(origins = {"http://localhost:3000"})
- * //@CrossOrigin(origins = {"http://58.87.91.154"})
- * //@CrossOrigin(origins = {"http://58.87.91.154"},allowCredentials = "true")
  */
 @RestController
 @RequestMapping("/team")
-//@CrossOrigin(origins = {"http://58.87.91.154:3000"},allowCredentials = "true")
-@CrossOrigin(origins = {"http://58.87.91.154:3000"})
+@CrossOrigin(origins = {"http://localhost:3000"},allowCredentials = "true")
 @Slf4j
 public class TeamController {
 
