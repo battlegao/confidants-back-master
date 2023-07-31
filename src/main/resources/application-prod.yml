@@ -5,15 +5,15 @@ spring:
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: 'jdbc:mysql://bj-cynosdbmysql-grp-m6g46hhs.sql.tencentcdb.com:24953/confidants?useSSL=false'
+    url: 'jdbc:mysql://线上数据库地址/confidants?useSSL=false'
     username: root
-    password: mysql56@.
+    password: root
     #Redis配置
     redis:
       port: 6379
-      host: 58.87.91.154
+      host: 线上地址
       database: 0
-      password: 123456
+      password: 密码
       #session失效时间（timeout单位 分钟）
     session:
       timeout: 86400
@@ -25,7 +25,7 @@ server:
   servlet:
     session:
       cookie:
-        domain: 58.87.91.154
+        domain: 线上地址
   mybatis-plus:
     configuration:
       map-underscore-to-camel-case: false
