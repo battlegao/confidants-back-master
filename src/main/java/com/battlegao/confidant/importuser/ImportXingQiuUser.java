@@ -15,7 +15,7 @@ public class ImportXingQiuUser {
 
     public static void main(String[] args) {
         // todo 记得改为自己的测试文件
-        String fileName = "D:\\mycode\\threecode\\04_JavaCodeAll\\02_projects\\b_confidants\\backtest\\confidant-back\\src\\main\\resources\\prodExcel.xlsx";
+        String fileName = "测试文件目录";
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 同步读取会自动finish
         List<XingQiuTableUserInfo> userInfoList =
                 EasyExcel.read(fileName).head(XingQiuTableUserInfo.class).sheet().doReadSync();

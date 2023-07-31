@@ -1,14 +1,34 @@
 # 线上配置文件
 spring:
+  application:
+    name: confidant-back
   # DataSource Config
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: 'jdbc:mysql://bj-cynosdbmysql-grp-m6g46hhs.sql.tencentcdb.com:24953/confidants?useSSL=false'
-
     username: root
     password: mysql56@.
-  # session 失效时间
-  session:
-    timeout: 86400
+    #Redis配置
+    redis:
+      port: 6379
+      host: 58.87.91.154
+      database: 0
+      password: 123456
+      #session失效时间（timeout单位 分钟）
+    session:
+      timeout: 86400
+      store-type: redis
+    server:
+      address: 0.0.0.0
 server:
-  address: 0.0.0.0
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        domain: 58.87.91.154
+  mybatis-plus:
+    configuration:
+      map-underscore-to-camel-case: false
+      log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+

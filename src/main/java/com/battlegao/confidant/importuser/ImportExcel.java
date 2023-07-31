@@ -14,7 +14,7 @@ public class ImportExcel {
      */
     public static void main(String[] args) {
         // todo 记得改为自己的测试文件
-        String fileName = "D:\\mycode\\threecode\\04_JavaCodeAll\\02_projects\\b_confidants\\backtest\\confidant-back\\src\\main\\resources\\testExcel.xlsx";
+        String fileName = "测试文件目录";
 //        readByListener(fileName);
         synchronousRead(fileName);
     }

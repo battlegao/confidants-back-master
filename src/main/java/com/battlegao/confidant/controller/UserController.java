@@ -28,10 +28,16 @@ import static com.battlegao.confidant.constant.UserConstant.USER_LOGIN_STATE;
 /**
  * 用户接口
  *
+ * //@CrossOrigin(origins = {"http://localhost:3000"})
+ * //@CrossOrigin(origins = {"http://58.87.91.154"},allowCredentials = "true")
+ * //@CrossOrigin(origins = {"http://58.87.91.154"})
+ * //@CrossOrigin(origins = {"http://localhost:3000","http://58.87.91.154"})
+ * //@CrossOrigin(origins = {"http://123.115.196.35"})
  */
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = {"http://localhost:3000"})
+//@CrossOrigin(origins = {"http://58.87.91.154:3000"},allowCredentials = "true")
+@CrossOrigin(origins = {"http://58.87.91.154:3000"})
 @Slf4j
 public class UserController {
 
