@@ -81,6 +81,10 @@
 15. 宝塔部署上线前后端
 <a name="ZWu3y"></a>
 ## 功能分析及页面展示：
+<a name="qkqKP"></a>
+### 挚友汇系统架构图（部分）：
+![输入图片说明](doc/picture/20-%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+
 <br /> **首页浏览：** 用户访问地址，首先跳到首页，需要注册登录后才能访问到站点上的其他用户。<br />
 ![输入图片说明](doc/picture/01-%E9%A6%96%E9%A1%B5.png)<br />
 <br /> **用户登录：** 已有账号的输入密码进行登录，未有账号的用户需要注册账号。<br />
@@ -111,9 +115,7 @@
 ![输入图片说明](doc/picture/15-%E5%AF%BB%E6%89%BE%E7%BB%93%E6%9E%9C.png)<br />
 <br />**队伍搜索页：** 用户更加关键词对理想队伍实现快速搜索功能。<br />
 ![输入图片说明](doc/picture/16-%E6%A0%B9%E6%8D%AE%E5%85%B3%E9%94%AE%E8%AF%8D%E5%AF%BB%E6%89%BE%E9%98%9F%E4%BC%8D.png)<br />
-<a name="qkqKP"></a>
-### 挚友汇系统架构图（部分）：
-![输入图片说明](doc/picture/20-%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+
 
 <br />个人博客：[https://www.cnblogs.com/zbcxy506/](https://www.cnblogs.com/zbcxy506/)<br />gitee地址：[https://gitee.com/g-abo/confidants-back-master](https://gitee.com/g-abo/confidants-back-master)
 
