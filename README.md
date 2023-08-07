@@ -83,7 +83,7 @@
 ## 功能分析及页面展示：
 <a name="qkqKP"></a>
 ### 挚友汇系统架构图（部分）：
-![输入图片说明](doc/picture/20-%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
+![image-name](doc/picture/20-%E6%9E%B6%E6%9E%84%E5%9B%BE.png)
 
 <br /> **首页浏览：** 用户访问地址，首先跳到首页，需要注册登录后才能访问到站点上的其他用户。<br />
 ![输入图片说明](doc/picture/01-%E9%A6%96%E9%A1%B5.png)<br />
